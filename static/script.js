@@ -1,5 +1,5 @@
 // Configuration
-const API_URL = 'http://localhost:5000';
+const API_URL = 'https://k-map-simplifier.vercel.app/api';
 
 // State
 let currentMode = 'SOP';

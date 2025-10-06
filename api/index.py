@@ -1,7 +1,12 @@
-from flask import Flask, request, jsonify
+import os
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 
-app = Flask(__name__)
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+template_dir = os.path.join(project_root, 'templates')
+static_dir = os.path.join(project_root, 'static')
+
+app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
 CORS(app)  # Enable CORS for frontend communication
 
 def decimal_to_binary(num, num_vars):
@@ -234,7 +239,11 @@ def simplify_boolean(minterms, num_vars, mode='SOP', dont_cares=None):
     
     return simplified
 
-@app.route('/simplify', methods=['POST'])
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/api/simplify', methods=['POST'])
 def simplify():
     """API endpoint for Boolean simplification"""
     try:
@@ -290,7 +299,7 @@ def simplify():
     except Exception as e:
         return jsonify({'error': f'Server error: {str(e)}'}), 500
 
-@app.route('/health', methods=['GET'])
+@app.route('/api/health', methods=['GET'])
 def health():
     """Health check endpoint"""
     return jsonify({'status': 'healthy', 'message': 'Boolean Simplifier API is running'})
