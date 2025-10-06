@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boolean Expression Simplifier</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-icon">⚡</div>
+            <h1 class="header-title">Boolean Simplifier</h1>
+        </div>
+        <p class="subtitle">Simplify boolean expressions using the Karnaugh MAP logic</p>
+
+        <!-- Input Card -->
+        <div class="card">
+            <div class="form-group">
+                <label for="numVars">Number of Variables</label>
+                <select id="numVars" class="input">
+                    <option value="2">2 Variables (A, B)</option>
+                    <option value="3" selected>3 Variables (A, B, C)</option>
+                    <option value="4">4 Variables (A, B, C, D)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Mode</label>
+                <div class="tabs">
+                    <button class="tab active" data-mode="SOP">Sum of Products (SOP)</button>
+                    <button class="tab" data-mode="POS">Product of Sums (POS)</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="minterms">
+                    <span id="termsLabel">Minterms</span> (comma-separated)
+                </label>
+                <input 
+                    type="text" 
+                    id="minterms" 
+                    class="input" 
+                    placeholder="e.g., 0, 1, 3, 7"
+                />
+                <small class="help-text">Valid range: <span id="rangeText">0 to 7</span></small>
+            </div>
+
+            <div class="form-group">
+                <label for="dontcares">Don't Cares (optional, comma-separated)</label>
+                <input 
+                    type="text" 
+                    id="dontcares" 
+                    class="input" 
+                    placeholder="e.g., 2, 5"
+                />
+            </div>
+
+            <div class="button-group">
+                <button id="simplifyBtn" class="btn btn-primary">
+                    ⚡ Simplify Expression
+                </button>
+                <button id="clearBtn" class="btn btn-secondary">Clear</button>
+            </div>
+        </div>
+
+        <!-- Result Card -->
+        <div id="resultCard" class="card result-card" style="display: none;">
+            <h2 class="result-title">⚡ Simplified Expression</h2>
+            
+            <div class="result-display">
+                <p id="resultExpression" class="result-text"></p>
+            </div>
+
+            <div class="result-details">
+                <div class="detail-box">
+                    <p class="detail-label">Variables</p>
+                    <p id="resultVars" class="detail-value"></p>
+                </div>
+
+                <div class="detail-box">
+                    <p class="detail-label">Mode</p>
+                    <p id="resultMode" class="detail-value"></p>
+                </div>
+
+                <div class="detail-box">
+                    <p class="detail-label">Original Terms</p>
+                    <p id="resultTerms" class="detail-value"></p>
+                </div>
+
+                <div id="dontCaresBox" class="detail-box" style="display: none;">
+                    <p class="detail-label">Don't Cares</p>
+                    <p id="resultDontCares" class="detail-value"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Card -->
+        <div class="card info-card">
+            <h3 class="info-title">How to Use</h3>
+            <ul class="info-list">
+                <li>Select the number of variables (2-4)</li>
+                <li>Choose between SOP (Sum of Products) or POS (Product of Sums)</li>
+                <li>Enter your minterms/maxterms as comma-separated numbers</li>
+                <li>Optionally add don't care terms</li>
+                <li>Click "Simplify Expression" to get the result</li>
+            </ul>
+        </div>
+
+        <!-- Toast Container -->
+        <div id="toast" class="toast"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
